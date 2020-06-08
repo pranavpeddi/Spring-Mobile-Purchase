@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CustomerList</title>
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}" />
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.min.css" th:href="@{bootstrap/css/bootstrap.min.css}" type="text/css" />
+
+    <script  href="../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+
+    <h3>Customers list</h3>
+    <hr>
+    <a th:href="@{/customerRel/addCustomer}" class="btn btn-primary btn-sm mb-3">Add Customer</a>
+
+    <table class="table table-bordered table-stripped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Customer id</th>
+            <th>Customer Name</th>
+            <th>Customer email</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cust :${customers}">
+        <td th:text="${cust.customerId}"/>
+            <td th:text="${cust.customerName}"/>
+            <td th:text="${cust.customerEmail}"/>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

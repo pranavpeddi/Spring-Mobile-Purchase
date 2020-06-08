@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Registration</title>
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}" />
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.min.css" th:href="@{bootstrap/css/bootstrap.min.css}" type="text/css" />
+
+    <script  href="../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+</head>
+<body>
+
+<div class="container">
+    <h3>Customer Directory</h3>
+    <hr>
+    <p class="h4 mb-4">Save Mobile/Customer </p>
+    <form th:action="@{/customerRel/save}" th:object="${customer}" method="post
+">
+        <input type="text" th:field="*{customerName}" class="form-control mb-4 col-4" placeholder="User name"
+               required autofocus="autofocus">
+
+        <input type="password" th:field="*{customerpassword}"class="form-control mb-4 col-4" placeholder="Password"
+               required autofocus="autofocus">
+
+        <input type="text" th:field="*{customerEmail}"class="form-control mb-4 col-4" placeholder="Customer Email"
+               required autofocus="autofocus">
+
+
+
+        <button type="submit " class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+
+
+</div>
+</body>
+</html>
