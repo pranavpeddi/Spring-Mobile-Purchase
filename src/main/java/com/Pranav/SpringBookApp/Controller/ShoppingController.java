@@ -35,6 +35,12 @@ public String bowbow()
     return "saveCustomer";
 }
 
+
+@GetMapping("/")
+public String index()
+{
+    return "index";
+}
 @GetMapping("/addMobile")
 public String meowMeow()
 {
