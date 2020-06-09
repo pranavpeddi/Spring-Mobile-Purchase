@@ -4,6 +4,7 @@ import com.Pranav.SpringBookApp.Model.Customer;
 import com.Pranav.SpringBookApp.Model.Mobile;
 import com.Pranav.SpringBookApp.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +51,11 @@ private CustomerRepository customerRepository;
    public void deleteCustomer(long id)
    {
        customerRepository.deleteById(id);
+   }
+
+   public List<Customer> findSingleUser(long id)
+   {
+       return (List<Customer>) customerRepository.findByCustomerId(id);
    }
 
 

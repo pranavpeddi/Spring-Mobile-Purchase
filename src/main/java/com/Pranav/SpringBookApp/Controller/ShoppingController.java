@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -29,11 +30,11 @@ public class ShoppingController {
     @Autowired
     MobileService mobileService;
 
-@GetMapping("/addCustomer")
-public String bowbow()
-{
-    return "saveCustomer";
-}
+//@GetMapping("/addCustomer")
+//public String bowbow()
+//{
+ //   return "saveCustomer";
+//}
 
 
 @GetMapping("/")
@@ -46,6 +47,9 @@ public String meowMeow()
 {
     return "saveMobile";
 }
+
+
+
 
 
 @PostMapping("/saveMobile")
@@ -62,6 +66,7 @@ public String saveMobile(Mobile mobile, @RequestParam("mobileRam")String ram,@Re
     Customer cus1=customerService.findByEmail(email);
     mobile.setMyCustomer(cus1);
     mobileService.save(mobile);
+
     return "redirect:/customerRel/mobileList";
 }
 
@@ -72,7 +77,7 @@ public String saveNewCustomer(Customer customer,Model theModel, @RequestParam("n
 
 
     customer.setCustomerEmail(email);
-    customer.setCustomerpassword(password);
+    customer.setCustomerPassword(password);
     customer.setCustomerName(name);
     customerRepository.save(customer);
     List<Customer> list=customerService.getAll();
@@ -80,6 +85,17 @@ public String saveNewCustomer(Customer customer,Model theModel, @RequestParam("n
     return "redirect:/customerRel/list";
 }
 
+
+
+
+@PostMapping("/showDetails")
+public String showCustomer(Customer customer,@RequestParam("id")long id,Model model)
+{
+    List<Customer> list1=customerService.findSingleUser(id);
+
+    model.addAttribute("newCustomer",list1);
+    return "showSingleUser";
+}
 
 @GetMapping("/list")
     public  String listCustomers(Model model)
@@ -89,6 +105,13 @@ public String saveNewCustomer(Customer customer,Model theModel, @RequestParam("n
     return "customerList";
 }
 
+
+@PostMapping("/addRoles")
+public String addUserByadmin(@RequestBody Customer customer)
+{
+    customerRepository.save(customer);
+    return "index";
+}
 
 @GetMapping("/mobileList")
     public String listMobiles(Model model)

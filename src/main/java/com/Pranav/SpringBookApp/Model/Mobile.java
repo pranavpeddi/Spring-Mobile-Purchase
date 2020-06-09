@@ -1,10 +1,9 @@
 package com.Pranav.SpringBookApp.Model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
@@ -18,8 +17,13 @@ public class Mobile
    private String processor;
    private long price;
 
+
+
   @ManyToOne
   private Customer myCustomer;
+
+   @OneToMany(mappedBy = "newMobile")
+    List<newCustomer> newCustomers=new ArrayList<>();
 
     public long getMobileId() {
         return mobileId;
@@ -67,5 +71,17 @@ public class Mobile
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Mobile{" +
+                "mobileId=" + mobileId +
+                ", mobileName='" + mobileName + '\'' +
+                ", ramSize='" + ramSize + '\'' +
+                ", processor='" + processor + '\'' +
+                ", price=" + price +
+                ", myCustomer=" + myCustomer +
+                '}';
     }
 }
