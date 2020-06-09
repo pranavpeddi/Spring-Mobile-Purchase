@@ -16,7 +16,12 @@
 
 <div class="container">
 
+
     <hr>
+    <a th:href="@{/customerRel/list}" class="btn btn-primary btn-sm mb-3">show Customers</a>
+    <a th:href="@{/customerRel/mobileList}" class="btn btn-primary btn-sm mb-3">Show Mobile Purchases</a>
+
+
     <p class="h4 mb-4">Save Mobile/Customer </p>
 <form name="myForm" method="post" th:action="@{/customerRel/save}">
   <input type="text" class="form-control mb-4 col-4" name="name" required autofocus="autofocus" placeholder="name">
@@ -30,5 +35,6 @@
 <form>
     <hr>
 </div>
+
 </body>
 </html>

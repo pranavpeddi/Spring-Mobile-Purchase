@@ -13,13 +13,15 @@
 <body>
 <div class="container">
 
-    <div  class="form-group col md-4">
-        <label class="col-form-label" for="myCustomer">Customer</label>
-        <select class="form-control" id="myCustomer" name="myCustomer">
-            <option th:each="customer, i:${Customer}" th:text="${customer.}"></option>
-        </select>
+     <form name="myForm" method="post" th:action="@{/customerRel/saveMobile}">
+    <input type="text" class="form-control mb-4 col-4" name="name" required autofocus="autofocus" placeholder="name">
+    <input type="password" class="form-control mb-4 col-4" name="password" required autofocus="autofocus" placeholder="password" pla>
+    <input type="email" class="form-control mb-4 col-4" name="email" required autofocus="autofocus" placeholder="email">
+    <button type="submit " class="btn btn-info col-2">Save</button>
+
+
     </div>
-</div>
+
 </body>
 
 </body>

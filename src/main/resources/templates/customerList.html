@@ -19,12 +19,14 @@
     <hr>
     <a th:href="@{/customerRel/addCustomer}" class="btn btn-primary btn-sm mb-3">Add Customer</a>
 
+    <a th:href="@{/customerRel/addMobile}" class="btn btn-primary btn-sm mb-3">Add Mobile</a>
     <table class="table table-bordered table-stripped">
         <thead class="thead-dark">
         <tr>
             <th>Customer id</th>
             <th>Customer Name</th>
             <th>Customer email</th>
+            <th>Action</th>
 
         </tr>
         </thead>
@@ -34,6 +36,13 @@
         <td th:text="${cust.customerId}"/>
             <td th:text="${cust.customerName}"/>
             <td th:text="${cust.customerEmail}"/>
+            <td>
+
+                <a th:href="@{/customerRel/updateCustomer(id=${cust.customerId})}"
+                   class="btn btn-info btn-sm">Update</a>
+                <a th:href="@{/customerRel/delete(id=${cust.customerId})}"
+                   class="btn btn-danger">Delete</a>
+            </td>
         </tbody>
     </table>
 </div>

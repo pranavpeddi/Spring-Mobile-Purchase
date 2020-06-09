@@ -6,6 +6,8 @@ import com.Pranav.SpringBookApp.Model.Mobile;
 import com.Pranav.SpringBookApp.Repository.CustomerRepository;
 import com.Pranav.SpringBookApp.Service.CustomerService;
 import com.Pranav.SpringBookApp.Service.MobileService;
+import com.sun.org.apache.regexp.internal.RE;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -33,18 +35,32 @@ public String bowbow()
     return "saveCustomer";
 }
 
-
-
-
-public String saveMobile(@ModelAttribute("mobile")Mobile mobile, @RequestParam("customer") int customerNum)
+@GetMapping("/addMobile")
+public String meowMeow()
 {
-  //  mobile.setMyCustomer();
+    return "saveMobile";
+}
+
+
+@PostMapping("/saveMobile")
+public String saveMobile(Mobile mobile, @RequestParam("mobileRam")String ram,@RequestParam("mobileProcessor")String processor,
+
+                          @RequestParam("mobileName")String name,@RequestParam("price")Long price,@RequestParam("email")
+                         String email)
+
+{
+    mobile.setMobileName(name);
+    mobile.setPrice(price);
+    mobile.setProcessor(processor);
+    mobile.setRamSize(ram);
+    Customer cus1=customerService.findByEmail(email);
+    mobile.setMyCustomer(cus1);
     mobileService.save(mobile);
-    return "index";
+    return "redirect:/customerRel/mobileList";
 }
 
 @PostMapping("/save")
-public String saveNewCustomer(Customer customer, @RequestParam("name")String name,
+public String saveNewCustomer(Customer customer,Model theModel, @RequestParam("name")String name,
                               @RequestParam("email") String email,@RequestParam("password")String password)
 {
 
@@ -53,6 +69,8 @@ public String saveNewCustomer(Customer customer, @RequestParam("name")String nam
     customer.setCustomerpassword(password);
     customer.setCustomerName(name);
     customerRepository.save(customer);
+    List<Customer> list=customerService.getAll();
+    theModel.addAttribute("customers",list);
     return "redirect:/customerRel/list";
 }
 
@@ -63,5 +81,38 @@ public String saveNewCustomer(Customer customer, @RequestParam("name")String nam
     List<Customer> list=customerService.getAll();
     model.addAttribute("customers",list);
     return "customerList";
+}
+
+
+@GetMapping("/mobileList")
+    public String listMobiles(Model model)
+{
+    List<Mobile> mobilesliList=mobileService.getall();
+    model.addAttribute("mobiles",mobilesliList);
+    return "mobileList";
+}
+
+@GetMapping("/updateCustomer")
+        public String upd(@RequestParam("id")long theId, Model model)
+{
+    Customer customer=customerService.findById  (theId);
+    model.addAttribute("customer",customer);
+    return "saveCustomer";
+}
+
+@GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("id")long theid)
+{
+    customerService.deleteCustomer(theid);
+    return "redirect:/customerRel/list";
+}
+
+
+@GetMapping("/deleteMobile")
+    public String deleteMobile(@RequestParam("id")long mID)
+{
+    mobileService.deleteMobile(mID);
+    return "redirect:/customerRel/mobileList";
+
 }
 }
