@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MobileRepository extends CrudRepository<Mobile,Long> {
-
+   Mobile findByMobileId(long id);
 }

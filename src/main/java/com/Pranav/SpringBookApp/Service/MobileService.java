@@ -24,4 +24,10 @@ public class MobileService {
     {
         mobileRepository.deleteById(id);
     }
+
+
+    public Mobile searchById(long id)
+    {
+        return mobileRepository.findByMobileId(id);
+    }
 }

@@ -47,6 +47,11 @@ private CustomerRepository customerRepository;
        return customer1;
    }
 
+   public Customer searchByName(String name)
+   {
+       return customerRepository.findByCustomerName(name);
+   }
+
 
    public void deleteCustomer(long id)
    {

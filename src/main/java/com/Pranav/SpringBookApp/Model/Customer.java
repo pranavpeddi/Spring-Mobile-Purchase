@@ -19,6 +19,9 @@ public class Customer {
     private String customerEmail;
     private String customerPassword;
 
+    @ManyToOne
+    private Mobile mobile;
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name="customer_role",joinColumns = @JoinColumn(name = "customer_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles;
@@ -40,16 +43,8 @@ public class Customer {
         this.customerPassword = customerPassword;
     }
 
-    public List<Mobile> getMobiles() {
-        return mobiles;
-    }
 
-    public void setMobiles(List<Mobile> mobiles) {
-        this.mobiles = mobiles;
-    }
 
-    @OneToMany(mappedBy = "myCustomer")
-    private List<Mobile> mobiles=new ArrayList<>();
 
 
     public Customer() {
@@ -81,15 +76,24 @@ public class Customer {
         this.customerEmail = customerEmail;
     }
 
+    public Mobile getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(Mobile mobile) {
+        this.mobile = mobile;
+    }
+
+
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
-                ", Customerpassword='" + customerPassword + '\'' +
-                ", mobiles=" + mobiles +
+                ", customerPassword='" + customerPassword + '\'' +
+                ", mobile=" + mobile +
+                ", roles=" + roles +
                 '}';
     }
 }

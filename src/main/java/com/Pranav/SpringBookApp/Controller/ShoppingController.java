@@ -18,7 +18,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
-@RequestMapping("customerRel")
+@RequestMapping("/customerRel")
 public class ShoppingController {
 
     @Autowired
@@ -55,35 +55,22 @@ public String meowMeow()
 @PostMapping("/saveMobile")
 public String saveMobile(Mobile mobile, @RequestParam("mobileRam")String ram,@RequestParam("mobileProcessor")String processor,
 
-                          @RequestParam("mobileName")String name,@RequestParam("price")Long price,@RequestParam("email")
-                         String email)
+                          @RequestParam("mobileName")String name,@RequestParam("price")Long price
+                         )
 
 {
     mobile.setMobileName(name);
     mobile.setPrice(price);
     mobile.setProcessor(processor);
     mobile.setRamSize(ram);
-    Customer cus1=customerService.findByEmail(email);
-    mobile.setMyCustomer(cus1);
+
+  //  mobile.setMyCustomer(cus1);
     mobileService.save(mobile);
 
-    return "redirect:/customerRel/mobileList";
+    return "redirect:/user/mobileList";
 }
 
-@PostMapping("/save")
-public String saveNewCustomer(Customer customer,Model theModel, @RequestParam("name")String name,
-                              @RequestParam("email") String email,@RequestParam("password")String password)
-{
 
-
-    customer.setCustomerEmail(email);
-    customer.setCustomerPassword(password);
-    customer.setCustomerName(name);
-    customerRepository.save(customer);
-    List<Customer> list=customerService.getAll();
-    theModel.addAttribute("customers",list);
-    return "redirect:/customerRel/list";
-}
 
 
 
@@ -106,20 +93,9 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
 }
 
 
-@PostMapping("/addRoles")
-public String addUserByadmin(@RequestBody Customer customer)
-{
-    customerRepository.save(customer);
-    return "index";
-}
 
-@GetMapping("/mobileList")
-    public String listMobiles(Model model)
-{
-    List<Mobile> mobilesliList=mobileService.getall();
-    model.addAttribute("mobiles",mobilesliList);
-    return "mobileList";
-}
+
+
 
 @GetMapping("/updateCustomer")
         public String upd(@RequestParam("id")long theId, Model model)

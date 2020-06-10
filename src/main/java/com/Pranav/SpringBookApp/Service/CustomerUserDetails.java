@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,8 @@ public class CustomerUserDetails implements UserDetails {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

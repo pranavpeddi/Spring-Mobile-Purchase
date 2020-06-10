@@ -19,23 +19,15 @@ public class Mobile
 
 
 
-  @ManyToOne
-  private Customer myCustomer;
 
-   @OneToMany(mappedBy = "newMobile")
-    List<newCustomer> newCustomers=new ArrayList<>();
+   @OneToMany(mappedBy = "mobile")
+
+    List<Customer> customers=new ArrayList<>();
 
     public long getMobileId() {
         return mobileId;
     }
 
-    public Customer getMyCustomer() {
-        return myCustomer;
-    }
-
-    public void setMyCustomer(Customer myCustomer) {
-        this.myCustomer = myCustomer;
-    }
 
     public void setMobileId(long mobileId) {
         this.mobileId = mobileId;
@@ -73,6 +65,14 @@ public class Mobile
         this.price = price;
     }
 
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
     @Override
     public String toString() {
         return "Mobile{" +
@@ -81,7 +81,7 @@ public class Mobile
                 ", ramSize='" + ramSize + '\'' +
                 ", processor='" + processor + '\'' +
                 ", price=" + price +
-                ", myCustomer=" + myCustomer +
+                ", customers=" + customers +
                 '}';
     }
 }

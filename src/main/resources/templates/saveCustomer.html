@@ -18,12 +18,12 @@
 
 
     <hr>
-    <a th:href="@{/customerRel/list}" class="btn btn-primary btn-sm mb-3">show Customers</a>
-    <a th:href="@{/customerRel/mobileList}" class="btn btn-primary btn-sm mb-3">Show Mobile Purchases</a>
 
 
-    <p class="h4 mb-4">Save Mobile/Customer </p>
-<form name="myForm" method="post" th:action="@{/customerRel/save}">
+
+
+    <p class="h4 mb-4">Please Enter your Details </p>
+<form name="myForm" method="post" th:action="@{/user/save}">
   <input type="text" class="form-control mb-4 col-4" name="name" required autofocus="autofocus" placeholder="name">
     <input type="password" class="form-control mb-4 col-4" name="password" required autofocus="autofocus" placeholder="password" pla>
  <input type="email" class="form-control mb-4 col-4" name="email" required autofocus="autofocus" placeholder="email">
@@ -32,7 +32,7 @@
 
 
 
-<form>
+</form>
     <hr>
 </div>
 

@@ -38,27 +38,29 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        // http.csrf().disable();
-       // http.httpBasic().and().authorizeRequests().antMatchers("/customerRel/**").permitAll().anyRequest().
-        //          authenticated().and().formLogin().permitAll();
+    //    http.httpBasic().and().authorizeRequests().antMatchers("/customerRel/**").permitAll().anyRequest().
+      //3           authenticated().and().formLogin().permitAll();
 
-        //http.authorizeRequests().antMatchers("/user/**").authenticated().anyRequest().permitAll().and()
-          //       .authorizeRequests().antMatchers("/customerRel/**").authenticated().anyRequest().hasAnyRole("ADMIN").and()
-            //    .formLogin().permitAll();
+       // http.authorizeRequests().antMatchers("/user/**").authenticated().anyRequest().permitAll().and()
+             //    .authorizeRequests().antMatchers("/customerRel/**").authenticated().anyRequest().hasAnyRole("ADMIN").and()
+       //       .formLogin().permitAll();
+ //  http.httpBasic().and().authorizeRequests().antMatchers("/customerRel/**").hasAnyRole("ADMIN").
+   //        anyRequest().authenticated().and().formLogin().permitAll();
 
 
-
-        http
-                .httpBasic()
-                .and()
+     http
+               .httpBasic()
+             .and()
+           .authorizeRequests()
+          .antMatchers("/user/**").permitAll()
+        .and()
                 .authorizeRequests()
-                .antMatchers("/user/**").permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/customerRel/**").hasAnyRole("ADMIN")
+                .antMatchers("/customerRel/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .permitAll();
+              .formLogin()
+               .permitAll();
+
     }
 
 
