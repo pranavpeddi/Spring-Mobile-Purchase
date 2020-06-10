@@ -17,6 +17,7 @@
 
     <h3>Today's sale</h3>
     <hr>
+    Today'sDate<h2 th:text="${date}"></h2>
     <table class="table table-bordered table-stripped">
         <thead class="thead-dark">
         <tr>
@@ -34,7 +35,9 @@
 
         </tbody>
     </table>
-    <h2 class="text" th:text="${TodaysIncome}">Today's Income</h2>
+
+   Today's Income <h2 class="text" th:text="${TodaysIncome}">Today's Income</h2>
+    <hr>
 </div>
 </body>
 </html>

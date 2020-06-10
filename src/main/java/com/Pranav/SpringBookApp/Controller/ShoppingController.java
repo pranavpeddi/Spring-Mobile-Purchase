@@ -7,12 +7,15 @@ import com.Pranav.SpringBookApp.Repository.CustomerRepository;
 import com.Pranav.SpringBookApp.Service.CustomerService;
 import com.Pranav.SpringBookApp.Service.MobileService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -91,20 +94,24 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
     for(Customer c1:list)
     {
 
-        if(date.equals(c1.getMobile().getDate()))
+        if(date.equals(c1.getDate_of_purchase().getDate()))
         {
-            System.out.println(c1);
+
+
             required.add(c1);
-            sum+=sum+c1.getMobile().getPrice();
-            System.out.println(c1);
+            sum+=c1.getMobile().getPrice();
+
         }
-        sum=sum+c1.getMobile().getPrice();
+
 
 
     }
-    required.stream().forEach(t->System.out.println(t));
-    model.addAttribute("todaysPurchase",list);
+
+
+
+    model.addAttribute("todaysPurchase",required);
     model.addAttribute("TodaysIncome",sum);
+    model.addAttribute("date",date);
     return "today";
 }
 
