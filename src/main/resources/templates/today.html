@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todays Purchasing sheet</title>
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}" />
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.min.css" th:href="@{bootstrap/css/bootstrap.min.css}" type="text/css" />
+
+    <script  href="../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+
+    <h3>Today's sale</h3>
+    <hr>
+    <table class="table table-bordered table-stripped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Mobile Name</th>
+            <th>Mobile Price</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cust :${todaysPurchase}">
+            <td th:text="${cust.mobile.getMobileName()}"/>
+            <td th:text="${cust.mobile.getPrice()}"/>
+
+
+        </tbody>
+    </table>
+    <h2 class="text" th:text="${TodaysIncome}">Today's Income</h2>
+</div>
+</body>
+</html>

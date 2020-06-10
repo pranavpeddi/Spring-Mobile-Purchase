@@ -38,11 +38,11 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        // http.csrf().disable();
-    //    http.httpBasic().and().authorizeRequests().antMatchers("/customerRel/**").permitAll().anyRequest().
-      //3           authenticated().and().formLogin().permitAll();
+       // http.httpBasic().and().authorizeRequests().antMatchers("/customerRel/**").permitAll().anyRequest().
+         //       authenticated().and().formLogin().permitAll();
 
-       // http.authorizeRequests().antMatchers("/user/**").authenticated().anyRequest().permitAll().and()
-             //    .authorizeRequests().antMatchers("/customerRel/**").authenticated().anyRequest().hasAnyRole("ADMIN").and()
+     // http.authorizeRequests().antMatchers("/user/**").authenticated().anyRequest().permitAll().and()
+     // .authorizeRequests().antMatchers("/customerRel/**").authenticated().anyRequest().hasAnyRole("ADMIN").and()
        //       .formLogin().permitAll();
  //  http.httpBasic().and().authorizeRequests().antMatchers("/customerRel/**").hasAnyRole("ADMIN").
    //        anyRequest().authenticated().and().formLogin().permitAll();
@@ -52,14 +52,15 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
                .httpBasic()
              .and()
            .authorizeRequests()
-          .antMatchers("/user/**").permitAll()
-        .and()
+          .antMatchers("/user**").permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/customerRel/**").hasRole("ADMIN")
+                .antMatchers("/customerRel**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
               .formLogin()
                .permitAll();
+
+
 
     }
 
@@ -67,6 +68,6 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder()
     {
-        return NoOpPasswordEncoder.getInstance();
+         return NoOpPasswordEncoder.getInstance();
     }
 }

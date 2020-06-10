@@ -19,6 +19,19 @@ public class Customer {
     private String customerEmail;
     private String customerPassword;
 
+
+    @ManyToOne
+    private DateOfPurchase date_of_purchase;
+
+
+    public DateOfPurchase getDate_of_purchase() {
+        return date_of_purchase;
+    }
+
+    public void setDate_of_purchase(DateOfPurchase date_of_purchase) {
+        this.date_of_purchase = date_of_purchase;
+    }
+
     @ManyToOne
     private Mobile mobile;
 
@@ -92,6 +105,7 @@ public class Customer {
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", customerPassword='" + customerPassword + '\'' +
+                ", date_of_purchase=" + date_of_purchase +
                 ", mobile=" + mobile +
                 ", roles=" + roles +
                 '}';

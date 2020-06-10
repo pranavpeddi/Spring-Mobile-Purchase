@@ -2,9 +2,11 @@ package com.Pranav.SpringBookApp.Controller;
 
 
 import com.Pranav.SpringBookApp.Model.Customer;
+import com.Pranav.SpringBookApp.Model.DateOfPurchase;
 import com.Pranav.SpringBookApp.Model.Mobile;
 import com.Pranav.SpringBookApp.Model.Role;
 import com.Pranav.SpringBookApp.Repository.CustomerRepository;
+import com.Pranav.SpringBookApp.Repository.DateOfPurchaseRepository;
 import com.Pranav.SpringBookApp.Service.CustomerDetailService;
 import com.Pranav.SpringBookApp.Service.CustomerService;
 import com.Pranav.SpringBookApp.Service.MobileService;
@@ -14,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +31,9 @@ public class UserConrtoller {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    DateOfPurchaseRepository dateOfPurchaseRepository;
 
     @Autowired
     MobileService mobileService;
@@ -43,6 +50,12 @@ public class UserConrtoller {
         List<Mobile> mobilesliList=mobileService.getall();
         model.addAttribute("mobiles",mobilesliList);
         return "mobileList";
+    }
+
+    @GetMapping("/singleUser")
+    public String sfsfsfs()
+    {
+        return "showSingleUser";
     }
 
 
@@ -70,14 +83,20 @@ public class UserConrtoller {
 
 
     @GetMapping("/addMobile")
-    public String addMobile(@RequestParam("id")long id, Customer customer, Model model)
+    public String addMobile(@RequestParam("id")long id, Customer customer, Model model, DateOfPurchase dop)
     {
 
       Mobile mobile=mobileService.searchById(id);
       String name=CustomerDetailService.uname;
       customer=customerService.searchByName(name);
       customer.setMobile(mobile);
+      LocalDate localDate=LocalDate.now();
+      dop.setDate(localDate);
+      dateOfPurchaseRepository.save(dop);
+      customer.setDate_of_purchase(dop);
       customerService.save(customer);
+
+
 
       model.addAttribute("name",name);
       model.addAttribute("email",customer.getCustomerEmail());

@@ -2,7 +2,9 @@ package com.Pranav.SpringBookApp.Model;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,11 +18,17 @@ public class Mobile
    private String ramSize;
    private String processor;
    private long price;
+   private LocalDate date;
 
+    public LocalDate getDate() {
+        return date;
+    }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-
-   @OneToMany(mappedBy = "mobile")
+    @OneToMany(mappedBy = "mobile")
 
     List<Customer> customers=new ArrayList<>();
 
@@ -81,7 +89,7 @@ public class Mobile
                 ", ramSize='" + ramSize + '\'' +
                 ", processor='" + processor + '\'' +
                 ", price=" + price +
-                ", customers=" + customers +
+                ", date=" + date +
                 '}';
     }
 }
