@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserConrtoller {
 
     @Autowired
@@ -38,13 +38,13 @@ public class UserConrtoller {
     @Autowired
     MobileService mobileService;
 
-    @GetMapping("/addCustomer")
+    @GetMapping("addCustomer")
     public String bowbow()
     {
         return "saveCustomer";
     }
 
-    @GetMapping("/mobileList")
+    @GetMapping("mobileList")
     public String listMobiles(Model model)
     {
         List<Mobile> mobilesliList=mobileService.getall();
@@ -52,7 +52,7 @@ public class UserConrtoller {
         return "mobileList";
     }
 
-    @GetMapping("/singleUser")
+    @GetMapping("singleUser")
     public String sfsfsfs()
     {
         return "showSingleUser";
@@ -60,7 +60,7 @@ public class UserConrtoller {
 
 
 
-    @PostMapping("/save")
+    @PostMapping("save")
     public String saveNewCustomer(Customer customer, Model theModel, @RequestParam("name")String name,
                                   @RequestParam("email") String email, @RequestParam("password")String password)
     {
@@ -82,7 +82,7 @@ public class UserConrtoller {
     }
 
 
-    @GetMapping("/addMobile")
+    @GetMapping("addMobile")
     public String addMobile(@RequestParam("id")long id, Customer customer, Model model, DateOfPurchase dop)
     {
 
@@ -107,7 +107,8 @@ public class UserConrtoller {
     }
 
 
-    @PostMapping("/addRoles")
+
+    @PostMapping("addRoles")
     public String addUserByadmin(@RequestBody Customer customer)
     {
         customerRepository.save(customer);

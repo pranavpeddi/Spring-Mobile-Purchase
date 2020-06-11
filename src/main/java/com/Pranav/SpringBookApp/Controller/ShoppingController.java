@@ -6,8 +6,10 @@ import com.Pranav.SpringBookApp.Model.Mobile;
 import com.Pranav.SpringBookApp.Repository.CustomerRepository;
 import com.Pranav.SpringBookApp.Service.CustomerService;
 import com.Pranav.SpringBookApp.Service.MobileService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/customerRel")
+@RequestMapping("customerRel")
 public class ShoppingController {
 
     @Autowired
@@ -33,13 +35,9 @@ public class ShoppingController {
 
 
 
-@GetMapping("/")
-public String index()
-{
-    return "index";
-}
 
-@GetMapping("/addMobile")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+@GetMapping("addMobile")
 public String meowMeow()
 {
     return "saveMobile";
@@ -48,7 +46,8 @@ public String meowMeow()
 
 
 
-@PostMapping("/saveMobile")
+
+@PostMapping("saveMobile")
 public String saveMobile(Mobile mobile, @RequestParam("mobileRam")String ram,@RequestParam("mobileProcessor")String processor,
 
                           @RequestParam("mobileName")String name,@RequestParam("price")Long price
@@ -71,7 +70,7 @@ public String saveMobile(Mobile mobile, @RequestParam("mobileRam")String ram,@Re
 
 
 
-@PostMapping("/showDetails")
+@PostMapping("showDetails")
 public String showCustomer(Customer customer,@RequestParam("id")long id,Model model)
 {
     List<Customer> list1=customerService.findSingleUser(id);
@@ -80,21 +79,83 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
     return "showSingleUser";
 }
 
-@GetMapping("/dayList")
-    public  String todaysShow(Model model) throws NullPointerException
+
+@GetMapping("findDate")
+public String findDate()
+{
+    return "searchDate";
+}
+
+@GetMapping("piecesSold")
+public String mobileSold(Model model)
+{
+  List<Customer>customers=customerService.getAll();
+  int y2=0,iphone=0,celkon=0,note=0,jio=0,vivo=0,honor=0,prime=0;
+  for(Customer c1:customers)
+  {
+      if(c1.getMobile().getMobileId()==13)
+      {
+          y2++;
+      }
+      else if(c1.getMobile().getMobileId()==14)
+      {
+           iphone++;
+      }
+      else if(c1.getMobile().getMobileId()==15)
+      {
+        celkon++;
+      }
+      else if(c1.getMobile().getMobileId()==16)
+      {
+         note++;
+      }
+      else if(c1.getMobile().getMobileId()==19)
+      {
+          jio++;
+      }
+      else if(c1.getMobile().getMobileId()==33)
+      {
+         vivo++;
+      }
+      else if(c1.getMobile().getMobileId()==34)
+      {
+         honor++;
+      }
+      else if(c1.getMobile().getMobileId()==35)
+      {
+            prime++;
+      }
+      else
+      {
+          System.out.println("not found anything ");
+      }
+  }
+    model.addAttribute("y2",y2);
+    model.addAttribute("iphone",iphone);
+    model.addAttribute("celkon",celkon);
+    model.addAttribute("note",note);
+    model.addAttribute("jio",jio);
+    model.addAttribute("vivo",vivo);
+    model.addAttribute("honor",honor);
+    model.addAttribute("prime",prime);
+    return "mobilesSold";
+}
+
+@PostMapping("dayList")
+    public  String todaysShow(Model model, @RequestParam("date")String date) throws NullPointerException
 {
 
 
     List<Customer> required=new ArrayList<>();
-    LocalDate date=LocalDate.now();
     List<Customer> list=customerService.getAll();
-
+    DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate d1=LocalDate.parse(date,dateTimeFormatter);
     long sum=0L;
 
     for(Customer c1:list)
     {
 
-        if(date.equals(c1.getDate_of_purchase().getDate()))
+        if(d1.equals(c1.getDate_of_purchase().getDate()))
         {
 
 
@@ -106,19 +167,19 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
 
 
     }
-
+ 
 
 
     model.addAttribute("todaysPurchase",required);
     model.addAttribute("TodaysIncome",sum);
-    model.addAttribute("date",date);
+    model.addAttribute("date",d1);
     return "today";
 }
 
 
 
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public  String listCustomers(Model model)
     {
         List<Customer> list=customerService.getAll();
@@ -127,7 +188,7 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
     }
 
 
-@GetMapping("/updateCustomer")
+@GetMapping("updateCustomer")
         public String upd(@RequestParam("id")long theId, Model model)
 {
     Customer customer=customerService.findById  (theId);
@@ -135,7 +196,7 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
     return "saveCustomer";
 }
 
-@GetMapping("/delete")
+@GetMapping("delete")
     public String deleteCustomer(@RequestParam("id")long theid)
 {
     customerService.deleteCustomer(theid);
@@ -143,7 +204,7 @@ public String showCustomer(Customer customer,@RequestParam("id")long id,Model mo
 }
 
 
-@GetMapping("/deleteMobile")
+@GetMapping("deleteMobile")
     public String deleteMobile(@RequestParam("id")long mID)
 {
     mobileService.deleteMobile(mID);

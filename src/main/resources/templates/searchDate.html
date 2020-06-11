@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Register Customer</title>
+
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}" />
+
+    <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.min.css" th:href="@{bootstrap/css/bootstrap.min.css}" type="text/css" />
+
+    <script  href="../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+
+<div class="container">
+
+
+    <hr>
+    <p>Find Mobile's sold in a day</p>
+    <form th:action="@{/customerRel/dayList} " method="post">
+
+        <center>
+            <input type="date" class="form-control mb-4 col-4" name="date" required autofocus="autofocus" placeholder="date">
+            <button type="submit " class="btn btn-info col-2">find</button>
+    </center>
+    </form>
+
+    <hr>
+</div>
+</body>
+</html>

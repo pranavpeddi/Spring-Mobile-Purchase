@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Todays Purchasing sheet</title>
+    <title>Mobiles sold</title>
 
     <link rel="stylesheet"  href="../../static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}" />
 
@@ -15,32 +15,37 @@
 <div class="container">
 
 
-    <h3>Today's sale</h3>
+    <h3>Mobiles Sold</h3>
     <hr>
-     <h2 class="text-lg-left"> Today's Date</h2></h2>
-    <h2 class="text-lg-right" th:text="${date}"></h2>
+
     <table class="table table-bordered table-stripped">
         <thead class="thead-dark">
         <tr>
-            <th>Mobile Name</th>
-            <th>Mobile Price</th>
+            <th>Xiaomi y2</th>
+            <th>iphone 11</th>
+            <th>celkon</th>
+            <th>redmi note 9 pro</th>
+            <th>jio</th>
+            <th>vivo</th>
+            <th>honor</th>
+            <th>Samsung j7 prime</th>
 
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="cust :${todaysPurchase}">
-            <td th:text="${cust.mobile.getMobileName()}"/>
-            <td th:text="${cust.mobile.getPrice()}"/>
 
+            <td th:text="${y2}"/>
+            <td th:text="${iphone}"/>
+            <td th:text="${celkon}"/>
+            <td th:text="${note}"/>
+            <td th:text="${jio}"/>
+            <td th:text="${vivo}"/>
+            <td th:text="${honor}"/>
+            <td th:text="${prime}"/>
 
         </tbody>
     </table>
-
-
-    <h2 class="text-lg-left"> Todays Income</h2>
-    <h2 class="text-lg-right" th:text="${TodaysIncome}">Today's Income</h2>
-    <hr>
 </div>
 </body>
 </html>

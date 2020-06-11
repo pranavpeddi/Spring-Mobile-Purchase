@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 
 
 @Configuration
@@ -26,7 +26,8 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customerDetailService);
+      auth.userDetailsService(customerDetailService) ;
+
     }
 
     @Bean
@@ -48,19 +49,40 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
    //        anyRequest().authenticated().and().formLogin().permitAll();
 
 
-     http
-               .httpBasic()
-             .and()
-           .authorizeRequests()
-          .antMatchers("/user**").permitAll().and()
+//     http
+//               .httpBasic()
+//             .and()
+//           .authorizeRequests()
+//          .antMatchers("/user/**").permitAll().and()
+//                .authorizeRequests()
+//                .antMatchers("/customerRel/**").hasAnyRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//              .formLogin()
+//               .permitAll();
+
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/index.html").permitAll()
+//                .antMatchers("/profile/**").authenticated()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
+//                .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
+//                .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
+//                .antMatchers("/api/public/users").hasRole("ADMIN")
+//                .and()
+//                .formLogin().permitAll();
+
+        http
                 .authorizeRequests()
-                .antMatchers("/customerRel**").hasAnyRole("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/profile/**").authenticated()
+                .antMatchers("/customerRel/**").hasAnyRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
+                .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
+                .antMatchers("/api/public/users").hasRole("ADMIN")
                 .and()
-              .formLogin()
-               .permitAll();
-
-
+                .formLogin().permitAll();
 
     }
 
@@ -70,4 +92,7 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
     {
          return NoOpPasswordEncoder.getInstance();
     }
+
+
+
 }

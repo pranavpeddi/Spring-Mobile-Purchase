@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerUserDetails implements UserDetails {
@@ -26,10 +28,19 @@ public class CustomerUserDetails implements UserDetails {
 
 
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-          return customer.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities=new ArrayList<>();
+
+        this.customer.getRoles().forEach(r->{
+            GrantedAuthority autority=new SimpleGrantedAuthority("ROLE_"+r);
+            authorities.add(autority);
+        });
+         // return customer.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+         //       .collect(Collectors.toList());
+          return authorities;
     }
 
     @Override
